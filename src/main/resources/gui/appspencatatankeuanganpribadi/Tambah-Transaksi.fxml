@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.time.LocalDate?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.appspencatatankeuanganpribadi.TambahTransaksiController"
+            prefHeight="500.0" prefWidth="700.0"
+            stylesheets="@dashboard.css">
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button fx:id="backButton" styleClass="back-button" text="← Kembali"/>
+            <Label text="Tambah Transaksi" styleClass="title-label">
+                <font>
+                    <Font name="System Bold" size="18"/>
+                </font>
+            </Label>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="form-container">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+
+            <Label text="Detail Transaksi" styleClass="section-header">
+                <font>
+                    <Font name="System Bold" size="16"/>
+                </font>
+            </Label>
+
+            <GridPane hgap="15" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="100" prefWidth="150" halignment="RIGHT"/>
+                    <ColumnConstraints minWidth="200" prefWidth="350" hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Jenis Transaksi -->
+                <Label text="Jenis Transaksi:" styleClass="form-label"
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <RadioButton fx:id="pemasukanRadio" text="Pemasukan" selected="true">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="jenisTransaksi"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton fx:id="pengeluaranRadio" text="Pengeluaran" toggleGroup="$jenisTransaksi"/>
+                </HBox>
+
+                <!-- Jumlah -->
+                <Label text="Jumlah (Rp):" styleClass="form-label"
+                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="jumlahField" promptText="Contoh: 100000"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <!-- Tanggal -->
+                <Label text="Tanggal:" styleClass="form-label"
+                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <DatePicker fx:id="tanggalPicker" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <value>
+                        <LocalDate fx:constant="NOW"/>
+                    </value>
+                </DatePicker>
+
+                <!-- Kategori -->
+                <Label text="Kategori:" styleClass="form-label"
+                       GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <ComboBox fx:id="kategoriComboBox" promptText="Pilih kategori" maxWidth="Infinity"
+                          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <!-- Deskripsi -->
+                <Label text="Deskripsi:" styleClass="form-label"
+                       GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextArea fx:id="deskripsiArea" promptText="Tambahkan catatan tentang transaksi ini"
+                          GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="100"/>
+            </GridPane>
+
+            <Separator/>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+                <Button fx:id="resetButton" text="Reset" styleClass="button-reset"/>
+                <Button fx:id="simpanButton" text="Simpan Transaksi" styleClass="button-primary" defaultButton="true"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

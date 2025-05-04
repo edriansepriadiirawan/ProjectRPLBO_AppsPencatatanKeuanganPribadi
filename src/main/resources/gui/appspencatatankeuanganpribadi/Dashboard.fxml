@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.DashboardController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <Label styleClass="title-label" text="Aplikasi Pencatatan Keuangan Pribadi">
+                <font>
+                    <Font name="System Bold" size="18" />
+                </font>
+            </Label>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="logoutButton" styleClass="logout-button" text="Logout" />
+        </HBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="220" spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="20" />
+            </padding>
+            <Label styleClass="sidebar-header" text="MENU UTAMA">
+                <font>
+                    <Font name="System Bold" size="14" />
+                </font>
+            </Label>
+            <Button fx:id="tambahTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Tambah Transaksi" />
+            <Button fx:id="kelolaKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Kelola Kategori" />
+            <Button fx:id="lihatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Lihat Data Transaksi" />
+            <Button fx:id="ringkasanKeuanganBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Ringkasan Keuangan" />
+            <Button fx:id="editTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Edit/Hapus Transaksi" />
+            <Button fx:id="filterKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" />
+            <Button fx:id="notifikasiSaldoBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Notifikasi Saldo" />
+            <Button fx:id="pengingatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Pengingat Transaksi" />
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <!-- Default Dashboard View -->
+            <VBox spacing="20" styleClass="dashboard-content">
+                <HBox alignment="CENTER" spacing="20">
+                    <VBox styleClass="info-card" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="15" left="15" right="15" top="15" />
+                        </padding>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label styleClass="card-icon" text="💰">
+                                <font>
+                                    <Font size="24" />
+                                </font>
+                            </Label>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets left="15" />
+                                </padding>
+                                <Label styleClass="card-label" text="Saldo Saat Ini" />
+                                <Label styleClass="card-value" text="Rp 5.000.000" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox styleClass="info-card" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="15" left="15" right="15" top="15" />
+                        </padding>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label styleClass="card-icon-red" text="↑">
+                                <font>
+                                    <Font size="24" />
+                                </font>
+                            </Label>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets left="15" />
+                                </padding>
+                                <Label styleClass="card-label" text="Pengeluaran Bulan Ini" />
+                                <Label styleClass="card-value" text="Rp 2.500.000" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox styleClass="info-card" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="15" left="15" right="15" top="15" />
+                        </padding>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label styleClass="card-icon-blue" text="↓">
+                                <font>
+                                    <Font size="24" />
+                                </font>
+                            </Label>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets left="15" />
+                                </padding>
+                                <Label styleClass="card-label" text="Pemasukan Bulan Ini" />
+                                <Label styleClass="card-value" text="Rp 7.500.000" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="20" VBox.vgrow="ALWAYS">
+                    <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                        <Label styleClass="section-header" text="Grafik Keuangan" />
+                        <AreaChart fx:id="areaChart" VBox.vgrow="ALWAYS">
+                            <xAxis>
+                                <CategoryAxis label="Bulan" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Jumlah (Rp)" />
+                            </yAxis>
+                        </AreaChart>
+                    </VBox>
+
+                    <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                        <Label styleClass="section-header" text="Distribusi Pengeluaran" />
+                        <PieChart fx:id="pieChart" VBox.vgrow="ALWAYS" />
+                    </VBox>
+                </HBox>
+
+                <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
+                    <Label styleClass="section-header" text="Transaksi Terbaru" />
+                    <TableView fx:id="transactionTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="dateColumn" prefWidth="120" text="Tanggal" />
+                            <TableColumn fx:id="descriptionColumn" prefWidth="200" text="Deskripsi" />
+                            <TableColumn fx:id="categoryColumn" prefWidth="150" text="Kategori" />
+                            <TableColumn fx:id="typeColumn" prefWidth="100" text="Tipe" />
+                            <TableColumn fx:id="amountColumn" prefWidth="150" text="Jumlah" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
