@@ -1,136 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.TambahTransaksiController">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.appspencatatankeuanganpribadi.DashboardController"
+            prefHeight="700.0" prefWidth="1000.0"
+            stylesheets="@dashboard.css">
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
             <padding>
-                <Insets bottom="15" left="15" right="15" top="15" />
+                <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Label styleClass="title-label" text="Aplikasi Pencatatan Keuangan Pribadi">
+            <Label text="Aplikasi Pencatatan keuangan Pribadi" styleClass="title-label">
                 <font>
-                    <Font name="System Bold" size="18" />
+                    <Font name="System Bold" size="18"/>
                 </font>
             </Label>
-            <Pane HBox.hgrow="ALWAYS" />
-            <Button fx:id="logoutButton" styleClass="logout-button" text="Logout" />
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button styleClass="logout-button" text="Logout" fx:id="logoutButton" />
         </HBox>
     </top>
 
     <left>
-        <VBox prefWidth="220" spacing="10" styleClass="sidebar">
+        <VBox styleClass="sidebar" prefWidth="220" spacing="10">
             <padding>
-                <Insets bottom="20" left="10" right="10" top="20" />
+                <Insets top="20" right="10" bottom="20" left="10"/>
             </padding>
-            <Label styleClass="sidebar-header" text="MENU UTAMA">
+            <Label text="MENU UTAMA" styleClass="sidebar-header">
                 <font>
-                    <Font name="System Bold" size="14" />
+                    <Font name="System Bold" size="14"/>
                 </font>
             </Label>
-            <Button fx:id="tambahTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Tambah Transaksi" />
-            <Button fx:id="kelolaKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Kelola Kategori" />
-            <Button fx:id="lihatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Lihat Data Transaksi" />
-            <Button fx:id="ringkasanKeuanganBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Ringkasan Keuangan" />
-            <Button fx:id="editTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Edit/Hapus Transaksi" />
-            <Button fx:id="filterKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" />
-            <Button fx:id="notifikasiSaldoBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Notifikasi Saldo" />
-            <Button fx:id="pengingatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Pengingat Transaksi" />
+            <Button fx:id="tambahTransaksiBtn" styleClass="sidebar-button" text="Tambah Transaksi" maxWidth="Infinity" />
+            <Button fx:id="kelolaKategoriBtn" styleClass="sidebar-button" text="Kelola Kategori" maxWidth="Infinity" />
+            <Button fx:id="lihatTransaksiBtn" styleClass="sidebar-button" text="Lihat Data Transaksi" maxWidth="Infinity" />
+            <Button fx:id="ringkasanKeuanganBtn" styleClass="sidebar-button" text="Ringkasan Keuangan" maxWidth="Infinity" />
+            <Button fx:id="editTransaksiBtn" styleClass="sidebar-button" text="Edit/Hapus Transaksi" maxWidth="Infinity" />
+            <Button fx:id="filterKategoriBtn" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" maxWidth="Infinity" />
+            <Button fx:id="notifikasiSaldoBtn" styleClass="sidebar-button" text="Notifikasi Saldo" maxWidth="Infinity" />
+            <Button fx:id="pengingatTransaksiBtn" styleClass="sidebar-button" text="Pengingat Transaksi" maxWidth="Infinity" />
         </VBox>
     </left>
 
     <center>
         <StackPane>
             <padding>
-                <Insets bottom="20" left="20" right="20" top="20" />
+                <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
+            <!-- Default Dashboard View -->
             <VBox spacing="20" styleClass="dashboard-content">
-                <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Button fx:id="backButton" styleClass="back-button" text="← Kembali ke Dashboard" />
-                    <Label styleClass="section-header" text="Tambah Transaksi">
-                        <font>
-                            <Font name="System Bold" size="16" />
-                        </font>
-                    </Label>
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox styleClass="info-card" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="💰" styleClass="card-icon">
+                                <font>
+                                    <Font size="24"/>
+                                </font>
+                            </Label>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets left="15"/>
+                                </padding>
+                                <Label text="Saldo Saat Ini" styleClass="card-label"/>
+                                <Label text="Rp 5.000.000" styleClass="card-value"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox styleClass="info-card" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="↑" styleClass="card-icon-red">
+                                <font>
+                                    <Font size="24"/>
+                                </font>
+                            </Label>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets left="15"/>
+                                </padding>
+                                <Label text="Pengeluaran Bulan Ini" styleClass="card-label"/>
+                                <Label text="Rp 2.500.000" styleClass="card-value"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <VBox styleClass="info-card" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets top="15" right="15" bottom="15" left="15"/>
+                        </padding>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="↓" styleClass="card-icon-blue">
+                                <font>
+                                    <Font size="24"/>
+                                </font>
+                            </Label>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets left="15"/>
+                                </padding>
+                                <Label text="Pemasukan Bulan Ini" styleClass="card-label"/>
+                                <Label text="Rp 7.500.000" styleClass="card-value"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
                 </HBox>
 
-                <VBox spacing="20" styleClass="form-container" VBox.vgrow="ALWAYS">
-                    <padding>
-                        <Insets bottom="20" left="20" right="20" top="20" />
-                    </padding>
+                <HBox spacing="20" VBox.vgrow="ALWAYS">
+                    <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                        <Label text="Grafik Keuangan" styleClass="section-header"/>
+                        <AreaChart fx:id="areaChart" VBox.vgrow="ALWAYS">
+                            <xAxis>
+                                <CategoryAxis label="Bulan"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Jumlah (Rp)"/>
+                            </yAxis>
+                        </AreaChart>
+                    </VBox>
 
-                    <Label styleClass="section-header" text="Detail Transaksi">
-                        <font>
-                            <Font name="System Bold" size="16" />
-                        </font>
-                    </Label>
+                    <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                        <Label text="Distribusi Pengeluaran" styleClass="section-header"/>
+                        <PieChart fx:id="pieChart" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </HBox>
 
-                    <GridPane hgap="15" vgap="15">
-                        <columnConstraints>
-                            <ColumnConstraints halignment="RIGHT" minWidth="120" prefWidth="150" />
-                            <ColumnConstraints hgrow="ALWAYS" minWidth="200" prefWidth="450" />
-                        </columnConstraints>
-
-                        <!-- Jenis Transaksi -->
-                        <Label styleClass="form-label" text="Jenis Transaksi:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                            <RadioButton fx:id="pemasukanRadio" selected="true" text="Pemasukan">
-                                <toggleGroup>
-                                    <ToggleGroup fx:id="jenisTransaksi" />
-                                </toggleGroup>
-                            </RadioButton>
-                            <RadioButton fx:id="pengeluaranRadio" text="Pengeluaran" toggleGroup="$jenisTransaksi" />
-                        </HBox>
-
-                        <!-- Jumlah -->
-                        <Label styleClass="form-label" text="Jumlah (Rp):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <TextField fx:id="jumlahField" promptText="Contoh: 100000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                        <!-- Tanggal -->
-                        <Label styleClass="form-label" text="Tanggal:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <DatePicker fx:id="tanggalPicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                        <!-- Kategori -->
-                        <Label styleClass="form-label" text="Kategori:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="kategoriComboBox" maxWidth="Infinity" promptText="Pilih kategori" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                        <!-- Deskripsi -->
-                        <Label styleClass="form-label" text="Deskripsi:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <TextArea fx:id="deskripsiArea" prefHeight="100" promptText="Tambahkan catatan tentang transaksi ini" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <rowConstraints>
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                  </rowConstraints>
-                    </GridPane>
-
-                    <Separator />
-
-                    <HBox alignment="CENTER_RIGHT" spacing="15">
-                        <Button fx:id="resetButton" styleClass="button-reset" text="Reset" />
-                        <Button fx:id="simpanButton" defaultButton="true" styleClass="button-primary" text="Simpan Transaksi" />
-                    </HBox>
+                <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
+                    <Label text="Transaksi Terbaru" styleClass="section-header"/>
+                    <TableView fx:id="transactionTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="dateColumn" text="Tanggal" prefWidth="120"/>
+                            <TableColumn fx:id="descriptionColumn" text="Deskripsi" prefWidth="200"/>
+                            <TableColumn fx:id="categoryColumn" text="Kategori" prefWidth="150"/>
+                            <TableColumn fx:id="typeColumn" text="Tipe" prefWidth="100"/>
+                            <TableColumn fx:id="amountColumn" text="Jumlah" prefWidth="150"/>
+                        </columns>
+                    </TableView>
                 </VBox>
             </VBox>
         </StackPane>

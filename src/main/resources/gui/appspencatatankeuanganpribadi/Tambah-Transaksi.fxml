@@ -1,90 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.time.LocalDate?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.appspencatatankeuanganpribadi.TambahTransaksiController"
-            prefHeight="500.0" prefWidth="700.0"
-            stylesheets="@dashboard.css">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.TambahTransaksiController">
     <top>
-        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="10">
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
             <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
+                <Insets bottom="15" left="15" right="15" top="15" />
             </padding>
-            <Button fx:id="backButton" styleClass="back-button" text="← Kembali"/>
-            <Label text="Tambah Transaksi" styleClass="title-label">
+            <Label styleClass="title-label" text="Aplikasi Pencatatan Keuangan Pribadi">
                 <font>
-                    <Font name="System Bold" size="18"/>
+                    <Font name="System Bold" size="18" />
                 </font>
             </Label>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="logoutButton" styleClass="logout-button" text="Logout" />
         </HBox>
     </top>
 
-    <center>
-        <VBox spacing="20" styleClass="form-container">
+    <left>
+        <VBox prefWidth="220" spacing="10" styleClass="sidebar">
             <padding>
-                <Insets top="30" right="30" bottom="30" left="30"/>
+                <Insets bottom="20" left="10" right="10" top="20" />
             </padding>
-
-            <Label text="Detail Transaksi" styleClass="section-header">
+            <Label styleClass="sidebar-header" text="MENU UTAMA">
                 <font>
-                    <Font name="System Bold" size="16"/>
+                    <Font name="System Bold" size="14" />
                 </font>
             </Label>
+            <Button fx:id="tambahTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Tambah Transaksi" />
+            <Button fx:id="kelolaKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Kelola Kategori" />
+            <Button fx:id="lihatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Lihat Data Transaksi" />
+            <Button fx:id="ringkasanKeuanganBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Ringkasan Keuangan" />
+            <Button fx:id="editTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Edit/Hapus Transaksi" />
+            <Button fx:id="filterKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" />
+            <Button fx:id="notifikasiSaldoBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Notifikasi Saldo" />
+            <Button fx:id="pengingatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Pengingat Transaksi" />
+        </VBox>
+    </left>
 
-            <GridPane hgap="15" vgap="15">
-                <columnConstraints>
-                    <ColumnConstraints minWidth="100" prefWidth="150" halignment="RIGHT"/>
-                    <ColumnConstraints minWidth="200" prefWidth="350" hgrow="ALWAYS"/>
-                </columnConstraints>
+    <center>
+        <StackPane>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
 
-                <!-- Jenis Transaksi -->
-                <Label text="Jenis Transaksi:" styleClass="form-label"
-                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <RadioButton fx:id="pemasukanRadio" text="Pemasukan" selected="true">
-                        <toggleGroup>
-                            <ToggleGroup fx:id="jenisTransaksi"/>
-                        </toggleGroup>
-                    </RadioButton>
-                    <RadioButton fx:id="pengeluaranRadio" text="Pengeluaran" toggleGroup="$jenisTransaksi"/>
+            <VBox spacing="20" styleClass="dashboard-content">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Button fx:id="backButton" styleClass="back-button" text="← Kembali ke Dashboard" />
+                    <Label alignment="CENTER_RIGHT" depthTest="DISABLE" prefHeight="35.0" prefWidth="581.0" styleClass="section-header" text="Tambah Transaksi" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+                        <font>
+                            <Font name="System Bold" size="16" />
+                        </font>
+                    </Label>
                 </HBox>
 
-                <!-- Jumlah -->
-                <Label text="Jumlah (Rp):" styleClass="form-label"
-                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                <TextField fx:id="jumlahField" promptText="Contoh: 100000"
-                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <VBox spacing="20" styleClass="form-container" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                    </padding>
 
-                <!-- Tanggal -->
-                <Label text="Tanggal:" styleClass="form-label"
-                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <DatePicker fx:id="tanggalPicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label styleClass="section-header" text="Detail Transaksi">
+                        <font>
+                            <Font name="System Bold" size="16" />
+                        </font>
+                    </Label>
 
-                <!-- Kategori -->
-                <Label text="Kategori:" styleClass="form-label"
-                       GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                <ComboBox fx:id="kategoriComboBox" promptText="Pilih kategori" maxWidth="Infinity"
-                          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <GridPane hgap="15" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" minWidth="120" prefWidth="150" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="200" prefWidth="450" />
+                        </columnConstraints>
 
-                <!-- Deskripsi -->
-                <Label text="Deskripsi:" styleClass="form-label"
-                       GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                <TextArea fx:id="deskripsiArea" promptText="Tambahkan catatan tentang transaksi ini"
-                          GridPane.columnIndex="1" GridPane.rowIndex="4" prefHeight="100"/>
-            </GridPane>
+                        <!-- Jenis Transaksi -->
+                        <Label styleClass="form-label" text="Jenis Transaksi:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <HBox spacing="20" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <RadioButton fx:id="pemasukanRadio" selected="true" text="Pemasukan">
+                                <toggleGroup>
+                                    <ToggleGroup fx:id="jenisTransaksi" />
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton fx:id="pengeluaranRadio" text="Pengeluaran" toggleGroup="$jenisTransaksi" />
+                        </HBox>
 
-            <Separator/>
+                        <!-- Jumlah -->
+                        <Label styleClass="form-label" text="Jumlah (Rp):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="jumlahField" promptText="Contoh: 100000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <HBox alignment="CENTER_RIGHT" spacing="15">
-                <Button fx:id="resetButton" text="Reset" styleClass="button-reset"/>
-                <Button fx:id="simpanButton" text="Simpan Transaksi" styleClass="button-primary" defaultButton="true"/>
-            </HBox>
-        </VBox>
+                        <!-- Tanggal -->
+                        <Label styleClass="form-label" text="Tanggal:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="tanggalPicker" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <!-- Kategori -->
+                        <Label styleClass="form-label" text="Kategori:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="kategoriComboBox" maxWidth="Infinity" promptText="Pilih kategori" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                        <!-- Deskripsi -->
+                        <Label styleClass="form-label" text="Deskripsi:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <TextArea fx:id="deskripsiArea" prefHeight="100" promptText="Tambahkan catatan tentang transaksi ini" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
+                    </GridPane>
+
+                    <Separator />
+
+                    <HBox alignment="CENTER_RIGHT" spacing="15">
+                        <Button fx:id="resetButton" styleClass="button-reset" text="Reset" />
+                        <Button fx:id="simpanButton" defaultButton="true" styleClass="button-primary" text="Simpan Transaksi" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </StackPane>
     </center>
 </BorderPane>

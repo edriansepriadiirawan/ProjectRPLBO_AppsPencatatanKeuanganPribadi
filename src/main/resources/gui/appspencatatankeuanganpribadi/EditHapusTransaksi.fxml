@@ -69,7 +69,7 @@
             <VBox spacing="20" styleClass="dashboard-content">
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Button fx:id="backButton" styleClass="back-button" text="← Kembali ke Dashboard" />
-                    <Label styleClass="section-header" text="Edit/Hapus Transaksi">
+                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="29.0" prefWidth="546.0" styleClass="section-header" text="Edit/Hapus Transaksi" textAlignment="RIGHT">
                         <font>
                             <Font name="System Bold" size="16" />
                         </font>
@@ -78,7 +78,7 @@
 
                 <HBox spacing="20" VBox.vgrow="ALWAYS">
                     <!-- Left side: Transaction List -->
-                    <VBox spacing="15" styleClass="form-container" prefWidth="400" HBox.hgrow="ALWAYS">
+                    <VBox prefWidth="400" spacing="15" styleClass="form-container" HBox.hgrow="ALWAYS">
                         <padding>
                             <Insets bottom="20" left="20" right="20" top="20" />
                         </padding>
@@ -90,7 +90,7 @@
                         </Label>
 
                         <!-- Search and Filter -->
-                        <HBox spacing="10" alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
                             <TextField fx:id="searchField" promptText="Cari transaksi..." HBox.hgrow="ALWAYS" />
                             <Button fx:id="searchButton" styleClass="button-primary" text="Cari" />
                         </HBox>
@@ -116,7 +116,7 @@
                     </VBox>
 
                     <!-- Right side: Edit Form -->
-                    <VBox spacing="15" styleClass="form-container" prefWidth="500">
+                    <VBox prefWidth="500" spacing="15" styleClass="form-container">
                         <padding>
                             <Insets bottom="20" left="20" right="20" top="20" />
                         </padding>
@@ -127,9 +127,9 @@
                             </font>
                         </Label>
 
-                        <Label fx:id="noTransaksiLabel" text="Belum ada transaksi yang dipilih" styleClass="info-label" visible="true" managed="true" />
+                        <Label fx:id="noTransaksiLabel" managed="true" styleClass="info-label" text="Belum ada transaksi yang dipilih" visible="true" />
 
-                        <VBox fx:id="editFormContainer" spacing="15" visible="false" managed="false">
+                        <VBox fx:id="editFormContainer" managed="false" spacing="15" visible="false">
                             <GridPane hgap="15" vgap="15">
                                 <columnConstraints>
                                     <ColumnConstraints halignment="RIGHT" minWidth="120" prefWidth="150" />
