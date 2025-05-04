@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.RingkasanKeuanganController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <Label styleClass="title-label" text="Aplikasi Pencatatan Keuangan Pribadi">
+                <font>
+                    <Font name="System Bold" size="18" />
+                </font>
+            </Label>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="logoutButton" styleClass="logout-button" text="Logout" />
+        </HBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="220" spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="20" />
+            </padding>
+            <Label styleClass="sidebar-header" text="MENU UTAMA">
+                <font>
+                    <Font name="System Bold" size="14" />
+                </font>
+            </Label>
+            <Button fx:id="tambahTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Tambah Transaksi" />
+            <Button fx:id="kelolaKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Kelola Kategori" />
+            <Button fx:id="lihatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Lihat Data Transaksi" />
+            <Button fx:id="ringkasanKeuanganBtn" maxWidth="Infinity" styleClass="sidebar-button-active" text="Ringkasan Keuangan" />
+            <Button fx:id="editTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Edit/Hapus Transaksi" />
+            <Button fx:id="filterKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" />
+            <Button fx:id="notifikasiSaldoBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Notifikasi Saldo" />
+            <Button fx:id="pengingatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Pengingat Transaksi" />
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <VBox spacing="20" styleClass="dashboard-content">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Button fx:id="backButton" styleClass="back-button" text="← Kembali ke Dashboard" />
+                    <Label styleClass="section-header" text="Ringkasan Keuangan">
+                        <font>
+                            <Font name="System Bold" size="16" />
+                        </font>
+                    </Label>
+                </HBox>
+
+                <VBox spacing="20" styleClass="form-container" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                    </padding>
+
+                    <!-- Filter Period Section -->
+                    <HBox alignment="CENTER_LEFT" spacing="15" styleClass="filter-section">
+                        <Label text="Periode:" />
+
+                        <ComboBox fx:id="periodComboBox" prefWidth="150.0" promptText="Pilih periode">
+                            <!-- Items will be populated in controller: This Week, This Month, This Year, Custom -->
+                        </ComboBox>
+
+                        <Label text="Dari:" />
+                        <DatePicker fx:id="tanggalMulaiPicker" />
+
+                        <Label text="Sampai:" />
+                        <DatePicker fx:id="tanggalAkhirPicker" />
+
+                        <Button fx:id="terapkanPeriodeBtn" styleClass="button-primary" text="Terapkan" />
+                    </HBox>
+
+                    <!-- Summary Cards -->
+                    <TilePane hgap="15" prefColumns="3" vgap="15">
+                        <VBox alignment="CENTER" prefHeight="100" prefWidth="300" styleClass="summary-card, income-card">
+                            <Label text="Total Pemasukan">
+                                <font>
+                                    <Font name="System Bold" size="14" />
+                                </font>
+                            </Label>
+                            <Label fx:id="totalPemasukanLabel" text="Rp 0">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                        <VBox alignment="CENTER" prefHeight="100" prefWidth="300" styleClass="summary-card, expense-card">
+                            <Label text="Total Pengeluaran">
+                                <font>
+                                    <Font name="System Bold" size="14" />
+                                </font>
+                            </Label>
+                            <Label fx:id="totalPengeluaranLabel" text="Rp 0">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                        <VBox alignment="CENTER" prefHeight="100" prefWidth="300" styleClass="summary-card, balance-card">
+                            <Label text="Saldo">
+                                <font>
+                                    <Font name="System Bold" size="14" />
+                                </font>
+                            </Label>
+                            <Label fx:id="saldoLabel" text="Rp 0">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+
+                    </TilePane>
+
+                    <Separator />
+
+                    <!-- Charts Tabs -->
+                    <TabPane styleClass="charts-tabpane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                        <Tab text="Ringkasan Bulanan">
+                            <VBox spacing="10">
+                                <BarChart fx:id="monthlyBarChart" legendSide="RIGHT" title="Pemasukan vs Pengeluaran (Bulanan)">
+                                    <xAxis>
+                                        <CategoryAxis label="Bulan" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Jumlah (Rp)" side="LEFT" />
+                                    </yAxis>
+                                </BarChart>
+                            </VBox>
+                        </Tab>
+
+                        <Tab text="Distribusi Kategori">
+                            <HBox spacing="20">
+                                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="chart-title" text="Pengeluaran Berdasarkan Kategori">
+                                        <font>
+                                            <Font name="System Bold" size="14" />
+                                        </font>
+                                    </Label>
+                                    <PieChart fx:id="expensePieChart" labelsVisible="true" legendSide="RIGHT" title="" />
+                                </VBox>
+
+                                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                                    <Label styleClass="chart-title" text="Pemasukan Berdasarkan Kategori">
+                                        <font>
+                                            <Font name="System Bold" size="14" />
+                                        </font>
+                                    </Label>
+                                    <PieChart fx:id="incomePieChart" labelsVisible="true" legendSide="RIGHT" title="" />
+                                </VBox>
+                            </HBox>
+                        </Tab>
+
+                        <Tab text="Tren Keuangan">
+                            <BarChart fx:id="trendBarChart" legendSide="RIGHT" title="Tren Saldo">
+                                <xAxis>
+                                    <CategoryAxis label="Periode" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Saldo (Rp)" side="LEFT" />
+                                </yAxis>
+                            </BarChart>
+                        </Tab>
+                    </TabPane>
+
+                    <!-- Export Options -->
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Button fx:id="exportChartBtn" styleClass="export-button" text="Export Chart" />
+                        <Button fx:id="exportLaporanBtn" styleClass="export-button" text="Cetak Laporan" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

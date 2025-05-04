@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="489.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.SignUp">
    <children>
-      <Pane prefHeight="490.0" prefWidth="390.0" style="-fx-background-color: blue;">
+      <Pane prefHeight="490.0" prefWidth="390.0" style="-fx-background-color: #2c3e50;">
          <children>
             <Pane layoutX="14.0" layoutY="416.0" prefHeight="60.0" prefWidth="90.0" style="-fx-background-color: white;" />
             <Pane layoutX="286.0" layoutY="416.0" prefHeight="60.0" prefWidth="90.0" style="-fx-background-color: white;" />
@@ -61,8 +61,8 @@
             </Text>
             <TextField layoutX="75.0" layoutY="258.0" prefHeight="50.0" prefWidth="232.0" />
             <Button layoutX="74.0" layoutY="409.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Create Acount" />
-            <Pane layoutX="19.0" layoutY="168.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: blue;" />
-            <Pane layoutX="19.0" layoutY="256.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: blue;">
+            <Pane layoutX="19.0" layoutY="168.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: #2c3e50;" />
+            <Pane layoutX="19.0" layoutY="256.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: #2c3e50;">
                <children>
                   <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="10.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -77,7 +77,7 @@
                </font>
             </Text>
             <TextField layoutX="75.0" layoutY="342.0" prefHeight="50.0" prefWidth="232.0" />
-            <Pane layoutX="19.0" layoutY="341.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: blue;" />
+            <Pane layoutX="19.0" layoutY="341.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: #2c3e50;" />
             <Pane layoutX="55.0" layoutY="46.0" prefHeight="60.0" prefWidth="232.0" style="-fx-background-color: blue;">
                <children>
                   <Text fill="WHITE" layoutX="55.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGNUP">
@@ -87,7 +87,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane layoutX="55.0" layoutY="46.0" prefHeight="60.0" prefWidth="232.0" style="-fx-background-color: blue;">
+            <Pane layoutX="55.0" layoutY="46.0" prefHeight="60.0" prefWidth="232.0" style="-fx-background-color: #2c3e50;">
                <children>
                   <Text fill="WHITE" layoutX="55.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGNUP">
                      <font>
