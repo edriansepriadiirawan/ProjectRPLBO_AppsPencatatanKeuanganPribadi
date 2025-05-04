@@ -64,11 +64,7 @@
                 <!-- Tanggal -->
                 <Label text="Tanggal:" styleClass="form-label"
                        GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <DatePicker fx:id="tanggalPicker" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <value>
-                        <LocalDate fx:constant="NOW"/>
-                    </value>
-                </DatePicker>
+                <DatePicker fx:id="tanggalPicker" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
                 <!-- Kategori -->
                 <Label text="Kategori:" styleClass="form-label"
