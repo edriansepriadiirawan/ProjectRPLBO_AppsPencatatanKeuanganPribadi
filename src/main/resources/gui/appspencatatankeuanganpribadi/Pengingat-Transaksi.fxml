@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@dashboard.css"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.appspencatatankeuanganpribadi.PengingatTransaksiController">
+
+    <!-- Top Bar Section -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <Label styleClass="title-label" text="Aplikasi Pencatatan Keuangan Pribadi">
+                <font>
+                    <Font name="System Bold" size="18" />
+                </font>
+            </Label>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button fx:id="logoutButton" styleClass="logout-button" text="Logout" />
+        </HBox>
+    </top>
+
+    <!-- Sidebar Navigation Menu -->
+    <left>
+        <VBox prefWidth="220" spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20" left="10" right="10" top="20" />
+            </padding>
+
+            <Label styleClass="sidebar-header" text="MENU UTAMA">
+                <font>
+                    <Font name="System Bold" size="14" />
+                </font>
+            </Label>
+
+            <!-- Navigation Buttons -->
+            <Button fx:id="dashboardBtn" maxWidth="Infinity"
+                     styleClass="sidebar-button" text="Dashboard" />
+            <Button fx:id="tambahTransaksiBtn" maxWidth="Infinity"
+                    styleClass="sidebar-button" text="Tambah Transaksi" />
+            <Button fx:id="kelolaKategoriBtn" maxWidth="Infinity"
+                    styleClass="sidebar-button" text="Kelola Kategori" />
+            <Button fx:id="lihatTransaksiBtn" maxWidth="Infinity"
+                    styleClass="sidebar-button" text="Lihat Data Transaksi" />
+            <Button fx:id="ringkasanKeuanganBtn" maxWidth="Infinity"
+                    styleClass="sidebar-button" text="Ringkasan Keuangan" />
+            <Button fx:id="editTransaksiBtn" maxWidth="Infinity"
+                    styleClass="sidebar-button" text="Edit/Hapus Transaksi" />
+            <Button fx:id="filterKategoriBtn" maxWidth="Infinity"
+                    styleClass="sidebar-button" text="Filter Berdasarkan Kategori" />
+            <Button fx:id="pengingatTransaksiBtn" maxWidth="Infinity"
+                    styleClass="sidebar-button-active" text="Pengingat Transaksi" />
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <StackPane>
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+
+            <VBox spacing="20" styleClass="dashboard-content">
+                <!-- Page Header -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Button fx:id="backButton" styleClass="back-button" text="← Kembali ke Dashboard" />
+                    <Label styleClass="section-header" text="Pengingat Transaksi">
+                        <font>
+                            <Font name="System Bold" size="16" />
+                        </font>
+                    </Label>
+                </HBox>
+
+                <!-- Main Content Container -->
+                <VBox spacing="20" styleClass="form-container" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="20" left="20" right="20" top="20" />
+                    </padding>
+
+                    <!-- Form untuk Menambahkan Pengingat Transaksi -->
+                    <VBox spacing="15" styleClass="input-container">
+                        <Label styleClass="section-subheader" text="Tambah Pengingat Transaksi">
+                            <font>
+                                <Font name="System Bold" size="14" />
+                            </font>
+                        </Label>
+
+                        <!-- Nama Transaksi -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Nama Transaksi:" />
+                            <TextField fx:id="namaTransaksiField" prefWidth="300" promptText="Masukkan nama transaksi" />
+                        </HBox>
+
+                        <!-- Jumlah Transaksi -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Jumlah (Rp):" />
+                            <TextField fx:id="jumlahTransaksiField" prefWidth="300" promptText="Masukkan jumlah" />
+                        </HBox>
+
+                        <!-- Kategori Transaksi -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Kategori:" />
+                            <ComboBox fx:id="kategoriComboBox" prefWidth="300" promptText="Pilih kategori" />
+                        </HBox>
+
+                        <!-- Tanggal Transaksi -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Tanggal Transaksi:" />
+                            <DatePicker fx:id="tanggalTransaksiPicker" prefWidth="300" promptText="Pilih tanggal transaksi" />
+                        </HBox>
+
+                        <!-- Waktu Pengingat -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Waktu Pengingat:" />
+                            <HBox spacing="5" alignment="CENTER_LEFT">
+                                <Spinner fx:id="jamSpinner" prefWidth="80" />
+                                <Label text=":" />
+                                <Spinner fx:id="menitSpinner" prefWidth="80" />
+                            </HBox>
+                        </HBox>
+
+                        <!-- Pengulangan Pengingat -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Pengulangan:" />
+                            <HBox spacing="10">
+                                <ToggleButton fx:id="sekaliBtn" text="Sekali" selected="true" />
+                                <ToggleButton fx:id="harianBtn" text="Harian" />
+                                <ToggleButton fx:id="mingguanBtn" text="Mingguan" />
+                                <ToggleButton fx:id="bulananBtn" text="Bulanan" />
+                            </HBox>
+                        </HBox>
+
+                        <!-- Deskripsi -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Deskripsi:" />
+                            <TextField fx:id="deskripsiField" prefWidth="300" promptText="Masukkan deskripsi (opsional)" />
+                        </HBox>
+
+                        <!-- Aktifkan/Nonaktifkan Pengingat -->
+                        <HBox alignment="CENTER_LEFT" spacing="15">
+                            <Label prefWidth="130" styleClass="form-label" text="Status Pengingat:" />
+                            <ToggleButton fx:id="statusPengingatToggle" text="Aktif" selected="true" />
+                        </HBox>
+
+                        <!-- Button Actions -->
+                        <HBox alignment="CENTER_RIGHT" spacing="10">
+                            <Button fx:id="resetFormBtn" styleClass="button-reset" text="Reset Form" />
+                            <Button fx:id="simpanPengingatBtn" styleClass="button-primary" text="Simpan Pengingat" />
+                        </HBox>
+                    </VBox>
+
+                    <Separator />
+
+                    <!-- Daftar Pengingat Transaksi -->
+                    <VBox spacing="10" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label styleClass="section-subheader" text="Daftar Pengingat Transaksi">
+                                <font>
+                                    <Font name="System Bold" size="14" />
+                                </font>
+                            </Label>
+
+                            <Pane HBox.hgrow="ALWAYS" />
+
+                            <!-- Filter dan Pencarian -->
+                            <HBox spacing="10" alignment="CENTER_RIGHT">
+                                <ComboBox fx:id="statusFilterComboBox" prefWidth="150" promptText="Semua Status" />
+                                <TextField fx:id="cariPengingatField" prefWidth="200" promptText="Cari pengingat..." />
+                            </HBox>
+                        </HBox>
+
+                        <!-- Tabel Pengingat -->
+                        <TableView fx:id="pengingatTableView" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="idPengingatColumn" prefWidth="40" text="ID" />
+                                <TableColumn fx:id="namaTransaksiColumn" prefWidth="120" text="Nama Transaksi" />
+                                <TableColumn fx:id="jumlahColumn" prefWidth="100" text="Jumlah (Rp)" />
+                                <TableColumn fx:id="kategoriColumn" prefWidth="100" text="Kategori" />
+                                <TableColumn fx:id="tanggalColumn" prefWidth="100" text="Tanggal" />
+                                <TableColumn fx:id="waktuPengingatColumn" prefWidth="80" text="Waktu" />
+                                <TableColumn fx:id="pengulanganColumn" prefWidth="90" text="Pengulangan" />
+                                <TableColumn fx:id="statusColumn" prefWidth="80" text="Status" />
+                                <TableColumn fx:id="aksiColumn" prefWidth="130" text="Aksi" />
+                            </columns>
+                        </TableView>
+
+                        <!-- Pagination -->
+                        <HBox alignment="CENTER">
+                            <Pagination fx:id="pengingatPagination" maxPageIndicatorCount="5" pageCount="10" />
+                        </HBox>
+
+                        <!-- Summary Information -->
+                        <HBox alignment="CENTER_RIGHT" spacing="20">
+                            <Label fx:id="totalPengingatLabel" text="Total Pengingat: 0" />
+                            <Label fx:id="pengingatAktifLabel" styleClass="active-reminder" text="Pengingat Aktif: 0" />
+                            <Label fx:id="pengingatNonaktifLabel" styleClass="inactive-reminder" text="Pengingat Nonaktif: 0" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
