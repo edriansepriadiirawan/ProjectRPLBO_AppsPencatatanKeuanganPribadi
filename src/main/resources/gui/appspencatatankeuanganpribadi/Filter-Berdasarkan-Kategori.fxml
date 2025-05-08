@@ -221,4 +221,19 @@
             </VBox>
         </StackPane>
     </center>
+    <bottom>
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="footer-bar">
+                <padding>
+                    <Insets bottom="8" left="15" right="15" top="8" />
+                </padding>
+                <Label text="Login sebagai:" />
+                <Label fx:id="userNameLabel" styleClass="user-name-label" text="[Nama Pengguna]">
+                    <font>
+                        <Font name="System Bold" size="12" />
+                    </font>
+                </Label>
+                <Pane HBox.hgrow="ALWAYS" />
+                <Label fx:id="lastLoginLabel" text="Login terakhir: 08-05-2025 14:30" />
+            </HBox>
+    </bottom>
 </BorderPane>
