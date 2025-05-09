@@ -3,7 +3,10 @@ package gui.appspencatatankeuanganpribadi;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -12,7 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -29,13 +34,14 @@ public class DashboardController implements Initializable {
     private Button kelolaKategoriBtn;
 
     @FXML
+    private Button editTransaksiBtn;
+
+    @FXML
     private Button lihatTransaksiBtn;
 
     @FXML
     private Button ringkasanKeuanganBtn;
 
-    @FXML
-    private Button editTransaksiBtn;
 
     @FXML
     private Button filterKategoriBtn;
@@ -72,11 +78,35 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initAreaChart();
-        initPieChart();
-        initTable();
-        setupButtonActions();
+        tambahTransaksiBtn.setOnAction(e -> bukaHalaman("Tambah-Transaksi.fxml"));
+        editTransaksiBtn.setOnAction(e -> bukaHalaman("EditHapusTransaksi.fxml"));
+        lihatTransaksiBtn.setOnAction(e -> bukaHalaman("View-DataTransaksi.fxml"));
+        ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
+        kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
+        logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
     }
+
+    private void bukaHalaman(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+            Stage stage = (Stage) tambahTransaksiBtn.getScene().getWindow(); // gunakan salah satu button
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Gagal membuka halaman: " + fxmlPath);
+        }
+    }
+
+    private void showErrorAlert(String pesan) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Kesalahan");
+        alert.setHeaderText(null);
+        alert.setContentText(pesan);
+        alert.showAndWait();
+    }
+
 
     private void initAreaChart() {
         XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
@@ -109,7 +139,6 @@ public class DashboardController implements Initializable {
                 new PieChart.Data("Hiburan", 5),
                 new PieChart.Data("Lainnya", 25)
         );
-
         pieChart.setData(pieChartData);
     }
 
@@ -133,59 +162,35 @@ public class DashboardController implements Initializable {
     }
 
     private void setupButtonActions() {
-        tambahTransaksiBtn.setOnAction(event -> {
-            // Implementasi untuk menambah transaksi
-            System.out.println("Tambah Transaksi diklik");
-        });
+        tambahTransaksiBtn.setOnAction(event -> gantiScene("Tambah-Transaksi.fxml"));
+        kelolaKategoriBtn.setOnAction(event -> gantiScene("Kelola-Kategori.fxml"));
+        lihatTransaksiBtn.setOnAction(event -> gantiScene("View-DataTransaksi.fxml"));
+        ringkasanKeuanganBtn.setOnAction(event -> gantiScene("Ringkasan-Keuangan.fxml"));
+        editTransaksiBtn.setOnAction(event -> gantiScene("EditHapusTransaksi.fxml"));
+        logoutButton.setOnAction(event -> gantiScene("Login.fxml"));
 
-        kelolaKategoriBtn.setOnAction(event -> {
-            // Implementasi untuk mengelola kategori
-            System.out.println("Kelola Kategori diklik");
-        });
-
-        lihatTransaksiBtn.setOnAction(event -> {
-            // Implementasi untuk melihat data transaksi
-            System.out.println("Lihat Data Transaksi diklik");
-        });
-
-        ringkasanKeuanganBtn.setOnAction(event -> {
-            // Implementasi untuk melihat ringkasan keuangan
-            System.out.println("Ringkasan Keuangan diklik");
-        });
-
-        editTransaksiBtn.setOnAction(event -> {
-            // Implementasi untuk mengedit/menghapus transaksi
-            System.out.println("Edit/Hapus Transaksi diklik");
-        });
-
-        filterKategoriBtn.setOnAction(event -> {
-            // Implementasi untuk filter berdasarkan kategori
-            System.out.println("Filter Berdasarkan Kategori diklik");
-        });
-
-        notifikasiSaldoBtn.setOnAction(event -> {
-            // Implementasi untuk notifikasi saldo
-            System.out.println("Notifikasi Saldo diklik");
-        });
-
-        pengingatTransaksiBtn.setOnAction(event -> {
-            // Implementasi untuk pengingat transaksi
-            System.out.println("Pengingat Transaksi diklik");
-        });
-
-        logoutButton.setOnAction(event -> {
-            // Implementasi untuk logout
-            System.out.println("Logout diklik");
-        });
+        // Placeholder (belum ada fungsinya)
+        filterKategoriBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Filter berdasarkan kategori belum tersedia."));
+        pengingatTransaksiBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Pengingat transaksi belum tersedia."));
     }
+
+    private void gantiScene(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) logoutButton.getScene().getWindow(); // Bisa gunakan tombol apa pun
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Gagal Pindah Halaman", "Error saat membuka " + fxmlPath, e.getMessage());
+        }
+    }
+
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
-    }
-
-    public void refreshDashboard() {
     }
 }

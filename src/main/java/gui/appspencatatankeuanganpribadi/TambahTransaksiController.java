@@ -23,6 +23,30 @@ public class TambahTransaksiController implements Initializable {
     private Button backButton;
 
     @FXML
+    private Button logoutButton;
+
+    @FXML
+    private Button ringkasanKeuanganBtn;
+
+    @FXML
+    private Button tambahTransaksiBtn;
+
+    @FXML
+    private Button kelolaKategoriBtn;
+
+    @FXML
+    private Button lihatTransaksiBtn;
+
+    @FXML
+    private Button editTransaksiBtn;
+
+    @FXML
+    private Button filterKategoriBtn;
+
+    @FXML
+    private Button pengingatTransaksiBtn;
+
+    @FXML
     private RadioButton pemasukanRadio;
 
     @FXML
@@ -60,11 +84,30 @@ public class TambahTransaksiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tambahTransaksiBtn.setOnAction(e -> bukaHalaman("Tambah-Transaksi.fxml"));
+        editTransaksiBtn.setOnAction(e -> bukaHalaman("EditHapusTransaksi.fxml"));
+        lihatTransaksiBtn.setOnAction(e -> bukaHalaman("View-DataTransaksi.fxml"));
+        ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
+        kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
+        logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
+
         tanggalPicker.setValue(LocalDate.now());
 
         kategoriComboBox.setItems(kategoriPemasukan);
 
         setupEventHandlers();
+    }
+    private void bukaHalaman(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+            Stage stage = (Stage) tambahTransaksiBtn.getScene().getWindow(); // gunakan salah satu button
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Gagal membuka halaman: " + fxmlPath);
+        }
     }
 
     private void setupEventHandlers() {
@@ -114,7 +157,8 @@ public class TambahTransaksiController implements Initializable {
             String deskripsi = deskripsiArea.getText();
 
             Transaksi transaksi = new Transaksi(tanggal, deskripsi, kategori, tipeTransaksi, jumlah);
-            System.out.println("Transaksi berhasil disimpan: " + transaksi);
+            DataBaseHelper.simpanTransaksi(transaksi);
+            System.out.println("Transaksi disimpan ke database: " + transaksi);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Sukses");
@@ -187,5 +231,37 @@ public class TambahTransaksiController implements Initializable {
             e.printStackTrace();
             showErrorAlert("Gagal kembali ke dashboard: " + e.getMessage());
         }
+    }
+    private void setupButtonActions() {
+        tambahTransaksiBtn.setOnAction(event -> gantiScene("Tambah-Transaksi.fxml"));
+        kelolaKategoriBtn.setOnAction(event -> gantiScene("Kelola-Kategori.fxml"));
+        lihatTransaksiBtn.setOnAction(event -> gantiScene("View-DataTransaksi.fxml"));
+        ringkasanKeuanganBtn.setOnAction(event -> gantiScene("Ringkasan-Keuangan.fxml"));
+        editTransaksiBtn.setOnAction(event -> gantiScene("EditHapusTransaksi.fxml"));
+        logoutButton.setOnAction(event -> gantiScene("Login.fxml"));
+
+        // Placeholder (belum ada fungsinya)
+        filterKategoriBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Filter berdasarkan kategori belum tersedia."));
+        pengingatTransaksiBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Pengingat transaksi belum tersedia."));
+    }
+
+    private void gantiScene(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) logoutButton.getScene().getWindow(); // Bisa gunakan tombol apa pun
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Gagal Pindah Halaman", "Error saat membuka " + fxmlPath, e.getMessage());
+        }
+    }
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

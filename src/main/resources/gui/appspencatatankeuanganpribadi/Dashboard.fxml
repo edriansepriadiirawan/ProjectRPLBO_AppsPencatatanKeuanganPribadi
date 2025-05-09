@@ -36,13 +36,13 @@
                     <Font name="System Bold" size="14"/>
                 </font>
             </Label>
-            <Button fx:id="dashboardBtn" maxWidth="Infinity" styleClass="sidebar-button-active" text="Dashboard" />
             <Button fx:id="tambahTransaksiBtn" styleClass="sidebar-button" text="Tambah Transaksi" maxWidth="Infinity" />
             <Button fx:id="kelolaKategoriBtn" styleClass="sidebar-button" text="Kelola Kategori" maxWidth="Infinity" />
             <Button fx:id="lihatTransaksiBtn" styleClass="sidebar-button" text="Lihat Data Transaksi" maxWidth="Infinity" />
             <Button fx:id="ringkasanKeuanganBtn" styleClass="sidebar-button" text="Ringkasan Keuangan" maxWidth="Infinity" />
             <Button fx:id="editTransaksiBtn" styleClass="sidebar-button" text="Edit/Hapus Transaksi" maxWidth="Infinity" />
             <Button fx:id="filterKategoriBtn" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" maxWidth="Infinity" />
+            <Button fx:id="notifikasiSaldoBtn" styleClass="sidebar-button" text="Notifikasi Saldo" maxWidth="Infinity" />
             <Button fx:id="pengingatTransaksiBtn" styleClass="sidebar-button" text="Pengingat Transaksi" maxWidth="Infinity" />
         </VBox>
     </left>
@@ -151,19 +151,4 @@
             </VBox>
         </StackPane>
     </center>
-    <bottom>
-            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="footer-bar">
-                <padding>
-                    <Insets bottom="8" left="15" right="15" top="8" />
-                </padding>
-                <Label text="Login sebagai:" />
-                <Label fx:id="userNameLabel" styleClass="user-name-label" text="[Nama Pengguna]">
-                    <font>
-                        <Font name="System Bold" size="12" />
-                    </font>
-                </Label>
-                <Pane HBox.hgrow="ALWAYS" />
-                <Label fx:id="lastLoginLabel" text="Login terakhir: 08-05-2025 14:30" />
-            </HBox>
-        </bottom>
 </BorderPane>

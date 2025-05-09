@@ -1,6 +1,13 @@
 package gui.appspencatatankeuanganpribadi;
 
+import javafx.fxml.FXML;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
+
+import static gui.appspencatatankeuanganpribadi.DataBaseHelper.connect;
 
 public class Transaksi {
     private LocalDate tanggal;
@@ -8,6 +15,25 @@ public class Transaksi {
     private String kategori;
     private String tipe;  // "Pemasukan" atau "Pengeluaran"
     private double jumlah;
+
+
+    public static void initTransaksiTable() {
+        String sql = """
+        CREATE TABLE IF NOT EXISTS transaksi (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            tanggal TEXT NOT NULL,
+            deskripsi TEXT,
+            kategori TEXT,
+            tipe TEXT,
+            jumlah REAL
+        );
+    """;
+        try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Transaksi(LocalDate tanggal, String deskripsi, String kategori, String tipe, double jumlah) {
         this.tanggal = tanggal;

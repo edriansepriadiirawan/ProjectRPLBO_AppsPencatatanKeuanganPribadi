@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="489.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.SignUp">
+<AnchorPane prefHeight="300" prefWidth="400" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.SignUp">
    <children>
       <Pane prefHeight="490.0" prefWidth="390.0" style="-fx-background-color: #2c3e50;">
          <children>
@@ -53,14 +54,15 @@
                   <Font name="Candara" size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="75.0" layoutY="169.0" prefHeight="50.0" prefWidth="232.0" />
+            <TextField fx:id="signupUsernameField" layoutX="75.0" layoutY="169.0" prefHeight="50.0" prefWidth="232.0" />
             <Text layoutX="80.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font name="Candara" size="14.0" />
                </font>
             </Text>
-            <TextField layoutX="75.0" layoutY="258.0" prefHeight="50.0" prefWidth="232.0" />
-            <Button layoutX="74.0" layoutY="409.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="230.0" text="Create Acount" />
+            <Button layoutX="88.0" layoutY="436.0" onAction="#backToLogin" prefHeight="25.0" prefWidth="192.0" text="Kembali ke Login" />
+            <PasswordField fx:id="signupPasswordField" layoutX="75.0" layoutY="258.0" prefHeight="50.0" prefWidth="232.0" />
+            <Button fx:id="CreateAccount" layoutX="87.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="14.0" prefWidth="192.0" text="Create Acount" />
             <Pane layoutX="19.0" layoutY="168.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: #2c3e50;" />
             <Pane layoutX="19.0" layoutY="256.0" prefHeight="53.0" prefWidth="50.0" style="-fx-border-color: blue; -fx-background-color: #2c3e50;">
                <children>
