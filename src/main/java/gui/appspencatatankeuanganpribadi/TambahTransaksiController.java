@@ -16,97 +16,87 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class TambahTransaksiController implements Initializable {
-
     @FXML
-    private Button backButton;
-
+    public Button logoutButton;
     @FXML
-    private RadioButton pemasukanRadio;
-
+    public Button filterKategoriBtn;
     @FXML
-    private RadioButton pengeluaranRadio;
-
+    private Button backButton, resetButton, simpanButton;
+    @FXML
+    private RadioButton pemasukanRadio, pengeluaranRadio;
     @FXML
     private ToggleGroup jenisTransaksi;
-
     @FXML
     private TextField jumlahField;
-
     @FXML
     private DatePicker tanggalPicker;
-
     @FXML
     private ComboBox<String> kategoriComboBox;
-
     @FXML
     private TextArea deskripsiArea;
-
     @FXML
-    private Button resetButton;
+    private Button editTransaksiBtn, lihatTransaksiBtn, ringkasanKeuanganBtn, kelolaKategoriBtn;
 
-    @FXML
-    private Button simpanButton;
-
-    private ObservableList<String> kategoriPemasukan = FXCollections.observableArrayList(
-            "Gaji", "Bonus", "Investasi", "Hadiah", "Penjualan", "Lainnya"
-    );
-
-    private ObservableList<String> kategoriPengeluaran = FXCollections.observableArrayList(
-            "Makanan", "Transportasi", "Belanja", "Hiburan", "Pendidikan",
-            "Tagihan", "Kesehatan", "Rumah", "Lainnya"
-    );
+    private ObservableList<Kategori> semuaKategoriObjek;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tanggalPicker.setValue(LocalDate.now());
 
-        kategoriComboBox.setItems(kategoriPemasukan);
+        // Muat kategori default (Pemasukan)
+        loadKategoriKeComboBox("Pemasukan");
+
+        // Event RadioButton
+        pemasukanRadio.setOnAction(e -> loadKategoriKeComboBox("Pemasukan"));
+        pengeluaranRadio.setOnAction(e -> loadKategoriKeComboBox("Pengeluaran"));
+
+        // Navigasi
+        editTransaksiBtn.setOnAction(e -> bukaHalaman("EditHapusTransaksi.fxml"));
+        lihatTransaksiBtn.setOnAction(e -> bukaHalaman("View-DataTransaksi.fxml"));
+        ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
+        kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
+        filterKategoriBtn.setOnAction(e -> bukaHalaman("FilterKategori.fxml"));
+        logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
 
         setupEventHandlers();
     }
 
+    private void loadKategoriKeComboBox(String jenis) {
+        semuaKategoriObjek = FXCollections.observableArrayList(DataBaseHelper.getSemuaKategoriObjek());
+        ObservableList<String> namaKategoriList = FXCollections.observableArrayList(
+                semuaKategoriObjek.stream()
+                        .filter(k -> k.getJenis().equalsIgnoreCase(jenis))
+                        .map(Kategori::getNama)
+                        .collect(Collectors.toList())
+        );
+        kategoriComboBox.setItems(namaKategoriList);
+        if (!namaKategoriList.isEmpty()) {
+            kategoriComboBox.getSelectionModel().selectFirst();
+        } else {
+            kategoriComboBox.getSelectionModel().clearSelection();
+        }
+    }
+
     private void setupEventHandlers() {
-        pemasukanRadio.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                kategoriComboBox.setItems(kategoriPemasukan);
-                kategoriComboBox.getSelectionModel().selectFirst();
-            }
-        });
-
-        pengeluaranRadio.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                kategoriComboBox.setItems(kategoriPengeluaran);
-                kategoriComboBox.getSelectionModel().selectFirst();
-            }
-        });
-
-        // Handle reset button
         resetButton.setOnAction(event -> {
             pemasukanRadio.setSelected(true);
             jumlahField.clear();
             tanggalPicker.setValue(LocalDate.now());
-            kategoriComboBox.setItems(kategoriPemasukan);
-            kategoriComboBox.getSelectionModel().selectFirst();
             deskripsiArea.clear();
+            loadKategoriKeComboBox("Pemasukan");
         });
 
-        // Handle back button
         backButton.setOnAction(event -> kembaliKeDashboard());
-
-        // Handle save button
         simpanButton.setOnAction(this::simpanTransaksi);
     }
 
     private void simpanTransaksi(ActionEvent event) {
-        // Validate input
-        if (!validateInput()) {
-            return;
-        }
+        if (!validateInput()) return;
 
         try {
-
             String tipeTransaksi = pemasukanRadio.isSelected() ? "Pemasukan" : "Pengeluaran";
             double jumlah = Double.parseDouble(jumlahField.getText().replace(".", "").replace(",", "."));
             LocalDate tanggal = tanggalPicker.getValue();
@@ -114,38 +104,38 @@ public class TambahTransaksiController implements Initializable {
             String deskripsi = deskripsiArea.getText();
 
             Transaksi transaksi = new Transaksi(tanggal, deskripsi, kategori, tipeTransaksi, jumlah);
-            System.out.println("Transaksi berhasil disimpan: " + transaksi);
+            DataBaseHelper.simpanTransaksi(transaksi);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Sukses");
             alert.setHeaderText("Transaksi Berhasil Disimpan");
-            alert.setContentText("Data transaksi telah berhasil disimpan ke dalam sistem.");
-
+            alert.setContentText("Data transaksi telah berhasil disimpan.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
                 kembaliKeDashboard();
             }
         } catch (NumberFormatException e) {
-            showErrorAlert("Format jumlah tidak valid. Masukkan angka saja.");
+            showErrorAlert("Format jumlah tidak valid. Gunakan angka saja.");
         } catch (Exception e) {
             showErrorAlert("Terjadi kesalahan: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     private boolean validateInput() {
         StringBuilder errorMessage = new StringBuilder();
 
-        if (jumlahField.getText().isEmpty()) {
+        String jumlahText = jumlahField.getText();
+        if (jumlahText.isEmpty()) {
             errorMessage.append("- Jumlah transaksi harus diisi.\n");
         } else {
             try {
-                String normalizedInput = jumlahField.getText().replace(".", "").replace(",", ".");
-                double amount = Double.parseDouble(normalizedInput);
+                double amount = Double.parseDouble(jumlahText.replace(".", "").replace(",", "."));
                 if (amount <= 0) {
-                    errorMessage.append("- Jumlah transaksi harus lebih dari 0.\n");
+                    errorMessage.append("- Jumlah harus lebih dari 0.\n");
                 }
             } catch (NumberFormatException e) {
-                errorMessage.append("- Format jumlah tidak valid. Masukkan angka saja.\n");
+                errorMessage.append("- Format jumlah tidak valid.\n");
             }
         }
 
@@ -158,7 +148,7 @@ public class TambahTransaksiController implements Initializable {
         }
 
         if (errorMessage.length() > 0) {
-            showErrorAlert("Mohon perbaiki kesalahan berikut:\n" + errorMessage.toString());
+            showErrorAlert("Mohon perbaiki kesalahan berikut:\n" + errorMessage);
             return false;
         }
 
@@ -167,25 +157,26 @@ public class TambahTransaksiController implements Initializable {
 
     private void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+        alert.setTitle("Kesalahan");
         alert.setHeaderText("Terjadi Kesalahan");
         alert.setContentText(message);
         alert.showAndWait();
     }
 
     private void kembaliKeDashboard() {
+        bukaHalaman("Dashboard.fxml");
+    }
+
+    private void bukaHalaman(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
-
             Stage stage = (Stage) backButton.getScene().getWindow();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showErrorAlert("Gagal kembali ke dashboard: " + e.getMessage());
+            showErrorAlert("Gagal membuka halaman: " + fxmlPath);
         }
     }
 }

@@ -43,13 +43,12 @@
                     <Font name="System Bold" size="14" />
                 </font>
             </Label>
-            <Button fx:id="dashboardBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Dashboard" />
             <Button fx:id="tambahTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Tambah Transaksi" />
             <Button fx:id="kelolaKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Kelola Kategori" />
-            <Button fx:id="lihatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button-active" text="Lihat Data Transaksi" />
             <Button fx:id="ringkasanKeuanganBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Ringkasan Keuangan" />
             <Button fx:id="editTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Edit/Hapus Transaksi" />
             <Button fx:id="filterKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" />
+            <Button fx:id="notifikasiSaldoBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Notifikasi Saldo" />
             <Button fx:id="pengingatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Pengingat Transaksi" />
         </VBox>
     </left>
@@ -62,7 +61,7 @@
 
             <VBox spacing="20" styleClass="dashboard-content">
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Button fx:id="backButton" styleClass="back-button" text="← Kembali ke Dashboard" />
+                    <Button fx:id="kembaliButton" styleClass="back-button" text="← Kembali ke Dashboard" />
                     <Label styleClass="section-header" text="Lihat Data Transaksi">
                         <font>
                             <Font name="System Bold" size="16" />
@@ -78,31 +77,18 @@
                     <!-- Filter Section -->
                     <HBox alignment="CENTER_LEFT" spacing="15" styleClass="filter-section">
                         <Label text="Filter Berdasarkan:" />
-
-                        <Label text="Dari:" />
-                        <DatePicker fx:id="tanggalMulaiPicker" />
-
-                        <Label text="Sampai:" />
-                        <DatePicker fx:id="tanggalAkhirPicker" />
-
-                        <ComboBox fx:id="filterJenisComboBox" prefWidth="150.0" promptText="Jenis Transaksi" />
-
-                        <TextField fx:id="pencarianField" promptText="Cari transaksi..." HBox.hgrow="ALWAYS" />
-
-                        <Button fx:id="terapkanFilterBtn" styleClass="button-primary" text="Terapkan Filter" />
-                        <Button fx:id="resetFilterBtn" styleClass="button-reset" text="Reset" />
+                        <DatePicker fx:id="filterTanggal" promptText="Pilih Tanggal" />
+                        <Button fx:id="resetFilterButton" styleClass="button-reset" text="Reset" />
                     </HBox>
 
                     <!-- Table Section -->
-                    <TableView fx:id="transaksiTableView" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="transaksiTable">
                         <columns>
-                            <TableColumn fx:id="idColumn" prefWidth="50" text="ID" />
-                            <TableColumn fx:id="tanggalColumn" prefWidth="100" text="Tanggal" />
-                            <TableColumn fx:id="jenisColumn" prefWidth="100" text="Jenis" />
-                            <TableColumn fx:id="kategoriColumn" prefWidth="120" text="Kategori" />
-                            <TableColumn fx:id="jumlahColumn" prefWidth="100" text="Jumlah (Rp)" />
-                            <TableColumn fx:id="deskripsiColumn" prefWidth="200" text="Deskripsi" />
-                            <TableColumn fx:id="aksiColumn" prefWidth="120" text="Aksi" />
+                            <TableColumn fx:id="tanggalColumn" text="Tanggal" />
+                            <TableColumn fx:id="tipeColumn" text="Jenis"/>
+                            <TableColumn fx:id="deskripsiColumn" text="Deskripsi" />
+                            <TableColumn fx:id="kategoriColumn" text="Kategori" />
+                            <TableColumn fx:id="jumlahColumn" text="Jumlah" />
                         </columns>
                     </TableView>
 
@@ -134,19 +120,4 @@
             </VBox>
         </StackPane>
     </center>
-    <bottom>
-            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="footer-bar">
-                <padding>
-                    <Insets bottom="8" left="15" right="15" top="8" />
-                </padding>
-                <Label text="Login sebagai:" />
-                <Label fx:id="userNameLabel" styleClass="user-name-label" text="[Nama Pengguna]">
-                    <font>
-                        <Font name="System Bold" size="12" />
-                    </font>
-                </Label>
-                <Pane HBox.hgrow="ALWAYS" />
-                <Label fx:id="lastLoginLabel" text="Login terakhir: 08-05-2025 14:30" />
-            </HBox>
-        </bottom>
 </BorderPane>
