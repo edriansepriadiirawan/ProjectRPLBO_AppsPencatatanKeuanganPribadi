@@ -9,9 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
-
 
 public class Login {
     @FXML
@@ -19,15 +17,15 @@ public class Login {
     @FXML
     private PasswordField passwordField;
 
-
     @FXML
     private void handleLogin() {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
-//        if (DataBaseHelper.validateLogin(username, password))
-        if (username.equals("admin") && password.equals("admin123")){
-            showAlert("Login Sukses", "Selamat datang, " + username + "!");
+        if (username.equals("admin") && password.equals("admin123")
+//       bila pakai db (DataBaseHelper.validateLogin(username, password)
+        ) {
+            showAlert("Login Sukses", "Selamat datang, user!");
             switchScene("Dashboard.fxml");
         } else {
             showAlert("Login Gagal", "Username atau password salah!");
@@ -58,7 +56,4 @@ public class Login {
             showAlert("Error", "Gagal membuka halaman " + fxmlFile);
         }
     }
-
-
-
 }

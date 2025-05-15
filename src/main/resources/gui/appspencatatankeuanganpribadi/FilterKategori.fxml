@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.appspencatatankeuanganpribadi.FilterKategoriKontroller"
+            prefHeight="700.0" prefWidth="1000.0"
+            stylesheets="@dashboard.css">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
+            <padding>
+                <Insets top="15" bottom="15" left="15" right="15"/>
+            </padding>
+            <Label text="Aplikasi Pencatatan Keuangan Pribadi" styleClass="title-label">
+                <font>
+                    <Font name="System Bold" size="18"/>
+                </font>
+            </Label>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="logoutButton" text="Logout" styleClass="logout-button"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="220" spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets top="20" bottom="20" left="10" right="10"/>
+            </padding>
+            <Label text="MENU UTAMA" styleClass="sidebar-header">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Label>
+            <Button fx:id="tambahTransaksiBtn" text="Tambah Transaksi" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="kelolaKategoriBtn" text="Kelola Kategori" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="lihatTransaksiBtn" text="Lihat Data Transaksi" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="ringkasanKeuanganBtn" text="Ringkasan Keuangan" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="editTransaksiBtn" text="Edit/Hapus Transaksi" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="notifikasiSaldoBtn" text="Notifikasi Saldo" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="pengingatTransaksiBtn" text="Pengingat Transaksi" styleClass="sidebar-button" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane>
+            <padding>
+                <Insets top="20" bottom="20" left="20" right="20"/>
+            </padding>
+
+            <VBox spacing="20" styleClass="dashboard-content">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Button fx:id="kembaliButton" text="← Kembali ke Dashboard" styleClass="back-button"/>
+                    <Label text="Filter Transaksi Berdasarkan Kategori" styleClass="section-header">
+                        <font>
+                            <Font name="System Bold" size="16"/>
+                        </font>
+                    </Label>
+                </HBox>
+
+                <!-- Filter Section -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Kategori:"/>
+                    <ComboBox fx:id="kategoriComboBox" prefWidth="250" promptText="Pilih Kategori"/>
+                    <Button fx:id="filterButton" text="Tampilkan" styleClass="button-primary"/>
+                    <Button fx:id="resetButton" text="Reset" styleClass="button-reset"/>
+                </HBox>
+
+                <!-- Tabel Transaksi -->
+                <VBox spacing="10" VBox.vgrow="ALWAYS">
+                    <TableView fx:id="transaksiTableView" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="tanggalColumn" text="Tanggal" prefWidth="120"/>
+                            <TableColumn fx:id="deskripsiColumn" text="Deskripsi" prefWidth="220"/>
+                            <TableColumn fx:id="kategoriColumn" text="Kategori" prefWidth="150"/>
+                            <TableColumn fx:id="tipeColumn" text="Jenis" prefWidth="100"/>
+                            <TableColumn fx:id="jumlahColumn" text="Jumlah" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox alignment="CENTER_RIGHT">
+                        <Label fx:id="totalTransaksiLabel" text="Total Transaksi: 0" />
+                    </HBox>
+                </VBox>
+
+                <!-- Export Buttons -->
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

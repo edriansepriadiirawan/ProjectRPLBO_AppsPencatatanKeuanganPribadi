@@ -1,5 +1,7 @@
 package gui.appspencatatankeuanganpribadi;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,16 +12,16 @@ import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -42,6 +44,8 @@ public class DashboardController implements Initializable {
     @FXML
     private Button ringkasanKeuanganBtn;
 
+    @FXML
+    private PieChart pieChart;
 
     @FXML
     private Button filterKategoriBtn;
@@ -55,14 +59,16 @@ public class DashboardController implements Initializable {
     @FXML
     private AreaChart<String, Number> areaChart;
 
-    @FXML
-    private PieChart pieChart;
 
     @FXML
     private TableView<Transaksi> transactionTable;
 
     @FXML
     private TableColumn<Transaksi, LocalDate> dateColumn;
+    @FXML
+    private Label saldoLabel, pemasukanLabel, pengeluaranLabel;
+    @FXML
+    private TableView<Transaksi> dashboardTable;
 
     @FXML
     private TableColumn<Transaksi, String> descriptionColumn;
@@ -72,6 +78,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TableColumn<Transaksi, String> typeColumn;
+
 
     @FXML
     private TableColumn<Transaksi, Double> amountColumn;
@@ -84,6 +91,19 @@ public class DashboardController implements Initializable {
         ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
         kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
+        filterKategoriBtn.setOnAction(event -> bukaHalaman("FilterKategori.fxml"));
+        pengingatTransaksiBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Pengingat transaksi belum tersedia."));
+        dashboardTable.setItems(FXCollections.observableArrayList(DataBaseHelper.ambilSemuaTransaksi()));
+
+        // ✅ Tambahkan ini agar PieChart tampil
+        initPieChart();
+        initPieChart();
+        initAreaChart();
+        updateInformasiKeuangan();
+
+        // (opsional) juga panggil yang lain jika ingin langsung tampil:
+        initAreaChart();
+        initTable();
     }
 
     private void bukaHalaman(String fxmlPath) {
@@ -108,83 +128,61 @@ public class DashboardController implements Initializable {
     }
 
 
+    private void updateInformasiKeuangan() {
+        YearMonth bulanIni = YearMonth.now();
+
+        double pemasukanBulan = DataBaseHelper.getTotalByTipeDanBulan("Pemasukan", bulanIni);
+        double pengeluaranBulan = DataBaseHelper.getTotalByTipeDanBulan("Pengeluaran", bulanIni);
+        double saldo = DataBaseHelper.getTotalSaldo();
+
+        saldoLabel.setText("Rp " + String.format("%,.0f", saldo));
+        pemasukanLabel.setText("Rp " + String.format("%,.0f", pemasukanBulan));
+        pengeluaranLabel.setText("Rp " + String.format("%,.0f", pengeluaranBulan));
+    }
+
     private void initAreaChart() {
-        XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
-        incomeSeries.setName("Pemasukan");
+        XYChart.Series<String, Number> pemasukanSeries = new XYChart.Series<>();
+        pemasukanSeries.setName("Pemasukan");
+        XYChart.Series<String, Number> pengeluaranSeries = new XYChart.Series<>();
+        pengeluaranSeries.setName("Pengeluaran");
 
-        incomeSeries.getData().add(new XYChart.Data<>("Jan", 5000000));
-        incomeSeries.getData().add(new XYChart.Data<>("Feb", 5500000));
-        incomeSeries.getData().add(new XYChart.Data<>("Mar", 4800000));
-        incomeSeries.getData().add(new XYChart.Data<>("Apr", 6200000));
-        incomeSeries.getData().add(new XYChart.Data<>("Mei", 7500000));
+        for (int i = 1; i <= 5; i++) {
+            YearMonth bulan = YearMonth.now().minusMonths(5 - i);
+            double pemasukan = DataBaseHelper.getTotalByTipeDanBulan("Pemasukan", bulan);
+            double pengeluaran = DataBaseHelper.getTotalByTipeDanBulan("Pengeluaran", bulan);
 
-        XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
-        expenseSeries.setName("Pengeluaran");
+            pemasukanSeries.getData().add(new XYChart.Data<>(bulan.getMonth().toString().substring(0, 3), pemasukan));
+            pengeluaranSeries.getData().add(new XYChart.Data<>(bulan.getMonth().toString().substring(0, 3), pengeluaran));
+        }
 
-        expenseSeries.getData().add(new XYChart.Data<>("Jan", 3000000));
-        expenseSeries.getData().add(new XYChart.Data<>("Feb", 3200000));
-        expenseSeries.getData().add(new XYChart.Data<>("Mar", 2800000));
-        expenseSeries.getData().add(new XYChart.Data<>("Apr", 2400000));
-        expenseSeries.getData().add(new XYChart.Data<>("Mei", 2500000));
-
-        areaChart.getData().addAll(incomeSeries, expenseSeries);
+        areaChart.getData().setAll(pemasukanSeries, pengeluaranSeries);
     }
 
     private void initPieChart() {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Makanan", 25),
-                new PieChart.Data("Transportasi", 20),
-                new PieChart.Data("Belanja", 15),
-                new PieChart.Data("Pendidikan", 10),
-                new PieChart.Data("Hiburan", 5),
-                new PieChart.Data("Lainnya", 25)
-        );
-        pieChart.setData(pieChartData);
+        YearMonth bulan = YearMonth.now();
+        Map<String, Double> data = DataBaseHelper.getJumlahPerKategoriAllTipe(bulan);
+
+        ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+
+        for (Map.Entry<String, Double> entry : data.entrySet()) {
+            pieData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+        }
+
+        pieChart.setData(pieData);
+        pieChart.setTitle("Distribusi Pemasukan & Pengeluaran");
     }
 
     private void initTable() {
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("deskripsi"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("kategori"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipe"));
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("jumlah"));
+        dateColumn.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getTanggal()));
+        descriptionColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getDeskripsi()));
+        categoryColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getKategori()));
+        typeColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getTipe()));
+        amountColumn.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getJumlah()));
 
-        // Contoh data transaksi
-        ObservableList<Transaksi> transaksiList = FXCollections.observableArrayList(
-                new Transaksi(LocalDate.of(2025, 5, 1), "Gaji Bulanan", "Pendapatan", "Pemasukan", 7500000.0),
-                new Transaksi(LocalDate.of(2025, 5, 2), "Belanja Bulanan", "Makanan", "Pengeluaran", 1500000.0),
-                new Transaksi(LocalDate.of(2025, 5, 3), "Bensin", "Transportasi", "Pengeluaran", 300000.0),
-                new Transaksi(LocalDate.of(2025, 5, 4), "Makan di Restoran", "Makanan", "Pengeluaran", 150000.0),
-                new Transaksi(LocalDate.of(2025, 5, 4), "Bonus Proyek", "Pendapatan", "Pemasukan", 2000000.0)
-        );
-
-        transactionTable.setItems(transaksiList);
+        dashboardTable.setItems(FXCollections.observableArrayList(DataBaseHelper.getTransaksiTerbaru(5)));
     }
 
-    private void setupButtonActions() {
-        tambahTransaksiBtn.setOnAction(event -> gantiScene("Tambah-Transaksi.fxml"));
-        kelolaKategoriBtn.setOnAction(event -> gantiScene("Kelola-Kategori.fxml"));
-        lihatTransaksiBtn.setOnAction(event -> gantiScene("View-DataTransaksi.fxml"));
-        ringkasanKeuanganBtn.setOnAction(event -> gantiScene("Ringkasan-Keuangan.fxml"));
-        editTransaksiBtn.setOnAction(event -> gantiScene("EditHapusTransaksi.fxml"));
-        logoutButton.setOnAction(event -> gantiScene("Login.fxml"));
 
-        // Placeholder (belum ada fungsinya)
-        filterKategoriBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Filter berdasarkan kategori belum tersedia."));
-        pengingatTransaksiBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Pengingat transaksi belum tersedia."));
-    }
-
-    private void gantiScene(String fxmlPath) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) logoutButton.getScene().getWindow(); // Bisa gunakan tombol apa pun
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Gagal Pindah Halaman", "Error saat membuka " + fxmlPath, e.getMessage());
-        }
-    }
 
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

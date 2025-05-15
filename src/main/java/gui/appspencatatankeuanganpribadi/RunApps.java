@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class RunApps extends Application {
+    @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(RunApps.class.getResource("Login.fxml"));
         Parent root = fxmlLoader.load();
@@ -27,6 +28,7 @@ public class RunApps extends Application {
             e.printStackTrace();
         }
         DataBaseHelper.initUserTable();
+        DataBaseHelper.initKategoriTable();
         DataBaseHelper.initKategoriTable();
         DataBaseHelper.initTransaksiTable(); // Tambahan baris ini
         launch(args);

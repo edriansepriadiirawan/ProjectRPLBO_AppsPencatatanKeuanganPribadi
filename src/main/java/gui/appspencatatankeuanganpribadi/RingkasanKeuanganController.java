@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +32,7 @@ public class RingkasanKeuanganController implements Initializable {
 
     @FXML
     private Button backButton, tambahTransaksiBtn, editTransaksiBtn, lihatTransaksiBtn,
-            ringkasanKeuanganBtn, kelolaKategoriBtn, logoutButton, filterKategoriBtn, pengingatTransaksiBtn;
+            kelolaKategoriBtn, logoutButton, filterKategoriBtn, pengingatTransaksiBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,7 +55,6 @@ public class RingkasanKeuanganController implements Initializable {
             tambahTransaksiBtn.setOnAction(e -> bukaHalaman("Tambah-Transaksi.fxml"));
             editTransaksiBtn.setOnAction(e -> bukaHalaman("EditHapusTransaksi.fxml"));
             lihatTransaksiBtn.setOnAction(e -> bukaHalaman("View-DataTransaksi.fxml"));
-            ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
             kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
             logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
 
@@ -74,16 +74,23 @@ public class RingkasanKeuanganController implements Initializable {
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error", "Gagal membuka halaman: " + fxmlPath);
+            showErrorAlert("Gagal membuka halaman: " + fxmlPath);
         }
     }
-
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Kesalahan");
+        alert.setHeaderText("Terjadi Kesalahan");
         alert.setContentText(message);
         alert.showAndWait();
     }
