@@ -58,7 +58,7 @@ public class RingkasanKeuanganController implements Initializable {
             kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
             logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
             filterKategoriBtn.setOnAction(e -> bukaHalaman("FilterKategori.fxml"));
-            pengingatTransaksiBtn.setOnAction(e -> showAlert("Informasi", "Fitur pengingat transaksi belum tersedia."));
+            pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi.fxml"));
 
         } catch (Exception e) {
             showAlert("Error", "Gagal memuat data ringkasan keuangan.");

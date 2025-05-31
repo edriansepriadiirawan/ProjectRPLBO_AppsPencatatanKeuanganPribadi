@@ -31,6 +31,8 @@ public class EditHapusTransaksiController implements Initializable {
     public Button filterKategoriBtn;
     @FXML
     public Button logoutButton;
+    @FXML
+    public Button pengingatTransaksiBtn;
     @FXML private TableView<Transaksi> transaksiTableView;
     @FXML private TableColumn<Transaksi, Integer> idColumn;
     @FXML private TableColumn<Transaksi, LocalDate> tanggalColumn;
@@ -76,6 +78,7 @@ public class EditHapusTransaksiController implements Initializable {
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
         kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
         filterKategoriBtn.setOnAction(e -> bukaHalaman("FilterKategori.fxml"));
+        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi.fxml"));
 
         kategoriComboBox.setItems(FXCollections.observableArrayList());
 

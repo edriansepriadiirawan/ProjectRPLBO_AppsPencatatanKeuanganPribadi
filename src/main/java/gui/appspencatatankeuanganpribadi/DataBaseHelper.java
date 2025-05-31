@@ -9,12 +9,23 @@ import java.util.*;
 import static java.sql.DriverManager.getConnection;
 
 public class DataBaseHelper {
-    private static final String URL = "jdbc:sqlite:src/main/resources/keuangan.db";
+    private static final String URL = "jdbc:sqlite:keuangan.db";
 
     // === Koneksi ===
     public static Connection connect() throws SQLException {
-        System.out.println("[DEBUG] Lokasi database: " + new File("keuangan.db").getAbsolutePath());
-        return getConnection(URL);
+//        System.out.println("[DEBUG] Lokasi database: " + new File("keuangan.db").getAbsolutePath());
+//        return getConnection(URL);
+        Connection conn = null;
+        try {
+            // Gunakan path relatif dari root project
+            String url = "jdbc:sqlite:keuangan.db";
+            conn = DriverManager.getConnection(url);
+            System.out.println("Koneksi ke database berhasil!");
+        } catch (SQLException e) {
+            System.out.println("Error koneksi database: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return conn;
     }
 
     // === USER ===

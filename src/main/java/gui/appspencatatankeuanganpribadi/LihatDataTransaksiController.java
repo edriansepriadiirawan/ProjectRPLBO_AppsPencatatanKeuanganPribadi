@@ -47,6 +47,7 @@ public class LihatDataTransaksiController implements Initializable {
     @FXML private Button ringkasanKeuanganBtn;
     @FXML private Button editTransaksiBtn;
     @FXML private Button logoutButton;
+    @FXML private Button pengingatTransaksiBtn;
 
 
     private final ObservableList<Transaksi> transaksiList = FXCollections.observableArrayList();
@@ -76,7 +77,7 @@ public class LihatDataTransaksiController implements Initializable {
         ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
         kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
         filterKategoriBtn.setOnAction(e -> bukaHalaman("FilterKategori.fxml"));
-
+        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi.fxml"));
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
 
     }

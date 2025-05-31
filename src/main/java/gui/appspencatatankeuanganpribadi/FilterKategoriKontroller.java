@@ -29,13 +29,14 @@ public class FilterKategoriKontroller implements Initializable {
     @FXML
     public Button filterKategoriBtn;
     @FXML
-    public Button notifikasiSaldoBtn;
-    @FXML
     public Button pengingatTransaksiBtn;
     @FXML
     public Button logoutButton;
     @FXML
     public Button lihatTransaksiBtn;
+    @FXML
+    public Button PengingatTransaksiBtn;
+
     @FXML private ComboBox<String> kategoriComboBox;
     @FXML private Button filterButton, resetButton, kembaliButton;
     @FXML private TableView<Transaksi> transaksiTableView;
@@ -57,6 +58,7 @@ public class FilterKategoriKontroller implements Initializable {
         ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
         kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
         lihatTransaksiBtn.setOnAction(e -> bukaHalaman("View-DataTransaksi.fxml"));
+        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi.fxml"));
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
         transaksiTableView.setItems(FXCollections.observableArrayList(DataBaseHelper.ambilSemuaTransaksi()));
 

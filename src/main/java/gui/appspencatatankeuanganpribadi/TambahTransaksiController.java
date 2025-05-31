@@ -38,7 +38,7 @@ public class TambahTransaksiController implements Initializable {
     @FXML
     private TextArea deskripsiArea;
     @FXML
-    private Button editTransaksiBtn, lihatTransaksiBtn, ringkasanKeuanganBtn, kelolaKategoriBtn;
+    private Button editTransaksiBtn, lihatTransaksiBtn, ringkasanKeuanganBtn, kelolaKategoriBtn, pengingatTransaksiBtn;
 
     private ObservableList<Kategori> semuaKategoriObjek;
 
@@ -59,6 +59,7 @@ public class TambahTransaksiController implements Initializable {
         ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
         kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
         filterKategoriBtn.setOnAction(e -> bukaHalaman("FilterKategori.fxml"));
+        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi.fxml"));
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
 
         setupEventHandlers();

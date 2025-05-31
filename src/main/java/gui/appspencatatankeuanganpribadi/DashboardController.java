@@ -51,9 +51,6 @@ public class DashboardController implements Initializable {
     private Button filterKategoriBtn;
 
     @FXML
-    private Button notifikasiSaldoBtn;
-
-    @FXML
     private Button pengingatTransaksiBtn;
 
     @FXML
@@ -92,7 +89,7 @@ public class DashboardController implements Initializable {
         kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
         filterKategoriBtn.setOnAction(event -> bukaHalaman("FilterKategori.fxml"));
-        pengingatTransaksiBtn.setOnAction(event -> showAlert("Fitur Belum Tersedia", null, "Pengingat transaksi belum tersedia."));
+        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi"));
         dashboardTable.setItems(FXCollections.observableArrayList(DataBaseHelper.ambilSemuaTransaksi()));
 
         // ✅ Tambahkan ini agar PieChart tampil

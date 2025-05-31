@@ -20,7 +20,7 @@ public class KelolakategoriKontroller implements Initializable {
     @FXML
     public Button filterKategoriBtn;
     @FXML private Button logoutButton, tambahTransaksiBtn, editTransaksiBtn, lihatTransaksiBtn, ringkasanKeuanganBtn;
-    @FXML private Button tambahButton, hapusButton, editButton, resetButton, kembaliButton;
+    @FXML private Button tambahButton, hapusButton, editButton, resetButton, kembaliButton, pengingatTransaksiBtn;
 
     @FXML private TextField namaKategoriField;
     @FXML private ComboBox<String> jenisKategoriComboBox;
@@ -60,6 +60,7 @@ public class KelolakategoriKontroller implements Initializable {
         lihatTransaksiBtn.setOnAction(e -> bukaHalaman("View-DataTransaksi.fxml"));
         ringkasanKeuanganBtn.setOnAction(e -> bukaHalaman("Ringkasan-Keuangan.fxml"));
         filterKategoriBtn.setOnAction(e -> bukaHalaman("FilterKategori.fxml"));
+        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi.fxml"));
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
 
         // Ketika klik baris di tabel
