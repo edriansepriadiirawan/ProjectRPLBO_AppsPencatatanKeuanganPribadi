@@ -11,6 +11,7 @@ module gui.appspencatatankeuanganpribadi {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires org.xerial.sqlitejdbc;
 
     opens gui.appspencatatankeuanganpribadi to javafx.fxml;
     exports gui.appspencatatankeuanganpribadi;

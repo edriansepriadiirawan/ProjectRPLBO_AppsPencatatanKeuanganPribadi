@@ -1,27 +1,31 @@
 package gui.appspencatatankeuanganpribadi;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import org.sqlite.core.DB;
+
+import java.io.IOException;
 
 public class Login {
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
-    @FXML
-    private TextField signupUsernameField;
-    @FXML
-    private PasswordField signupPasswordField;
 
     @FXML
     private void handleLogin() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
-        if (username.equals("admin") && password.equals("1234")) {
-            showAlert("Login Sukses", "Selamat datang, " + username + "!");
+        if (DataBaseHelper.validateLogin(username, password)) {
+            showAlert("Login Sukses", "Selamat datang, user!");
+            switchScene("Dashboard.fxml");
         } else {
             showAlert("Login Gagal", "Username atau password salah!");
         }
@@ -29,19 +33,7 @@ public class Login {
 
     @FXML
     private void handleSignup() {
-        showAlert("Info", "Silakan isi form di bawah untuk membuat akun baru.");
-    }
-
-    @FXML
-    private void handleCreateAccount() {
-        String username = signupUsernameField.getText();
-        String password = signupPasswordField.getText();
-
-        if (username.isEmpty() || password.isEmpty()) {
-            showAlert("Error", "Username dan password harus diisi!");
-        } else {
-            showAlert("Akun Dibuat", "Akun untuk " + username + " berhasil dibuat!");
-        }
+        switchScene("SignUp.fxml");
     }
 
     private void showAlert(String title, String message) {
@@ -50,5 +42,17 @@ public class Login {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.show();
+    }
+
+    private void switchScene(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Gagal membuka halaman " + fxmlFile);
+        }
     }
 }

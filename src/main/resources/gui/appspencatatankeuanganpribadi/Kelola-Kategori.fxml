@@ -18,7 +18,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.KelolaKategoriController">
+<?import javafx.scene.control.ListView?>
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.appspencatatankeuanganpribadi.KelolakategoriKontroller">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
             <padding>
@@ -45,12 +46,10 @@
                 </font>
             </Label>
             <Button fx:id="tambahTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Tambah Transaksi" />
-            <Button fx:id="kelolaKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button-active" text="Kelola Kategori" />
             <Button fx:id="lihatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Lihat Data Transaksi" />
             <Button fx:id="ringkasanKeuanganBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Ringkasan Keuangan" />
             <Button fx:id="editTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Edit/Hapus Transaksi" />
             <Button fx:id="filterKategoriBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Filter Berdasarkan Kategori" />
-            <Button fx:id="notifikasiSaldoBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Notifikasi Saldo" />
             <Button fx:id="pengingatTransaksiBtn" maxWidth="Infinity" styleClass="sidebar-button" text="Pengingat Transaksi" />
         </VBox>
     </left>
@@ -63,8 +62,9 @@
 
             <VBox spacing="20" styleClass="dashboard-content">
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Button fx:id="backButton" styleClass="back-button" text="← Kembali ke Dashboard" />
+                    <Button fx:id="kembaliButton" styleClass="back-button" text="← Kembali ke Dashboard" />
                     <Label styleClass="section-header" text="Kelola Kategori">
+                        <ListView fx:id="kategoriListView" prefHeight="200.0" prefWidth="400.0" />
                         <font>
                             <Font name="System Bold" size="16" />
                         </font>
@@ -103,9 +103,7 @@
                             <Label styleClass="form-label" text="Jenis:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                             <ComboBox fx:id="jenisKategoriComboBox" maxWidth="Infinity" promptText="Pilih jenis kategori" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                            <!-- Ikon Kategori (Opsional) -->
-                            <Label styleClass="form-label" text="Ikon:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                            <ComboBox fx:id="iconKategoriComboBox" maxWidth="Infinity" promptText="Pilih ikon (opsional)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
 
                         </GridPane>
 
@@ -114,10 +112,12 @@
                         <HBox alignment="CENTER_RIGHT" spacing="15">
                             <Button fx:id="resetButton" styleClass="button-reset" text="Reset" />
                             <Button fx:id="tambahButton" defaultButton="true" styleClass="button-primary" text="Tambah Kategori" />
+                            <Button fx:id="hapusButton" text="Hapus" />
+                            <Button fx:id="editButton" text="Edit" />
+
                         </HBox>
 
-                        <Label fx:id="statusLabel" styleClass="status-label" text="" textAlignment="CENTER" maxWidth="Infinity" wrapText="true" />
-                    </VBox>
+                        <Label fx:id="statusLabel" text="Total Kategori: 0" />                    </VBox>
 
                     <!-- Daftar kategori yang sudah ada -->
                     <VBox spacing="15" styleClass="form-container" HBox.hgrow="ALWAYS">
@@ -134,10 +134,8 @@
                         <TableView fx:id="kategoriTableView" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="idColumn" prefWidth="50" text="ID" />
-                                <TableColumn fx:id="namaColumn" prefWidth="150" text="Nama Kategori" />
-                                <TableColumn fx:id="jenisColumn" prefWidth="100" text="Jenis" />
-                                <TableColumn fx:id="iconColumn" prefWidth="50" text="Ikon" />
-                                <TableColumn fx:id="aksiColumn" prefWidth="150" text="Aksi" />
+                                <TableColumn fx:id="namaKategoriColumn" prefWidth="150" text="Nama Kategori" />
+                                <TableColumn fx:id="jenisKategoriColumn" prefWidth="100" text="Jenis" />
                             </columns>
                         </TableView>
 
