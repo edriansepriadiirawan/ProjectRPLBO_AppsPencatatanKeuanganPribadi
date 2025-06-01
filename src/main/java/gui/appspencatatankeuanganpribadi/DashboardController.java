@@ -89,30 +89,29 @@ public class DashboardController implements Initializable {
         kelolaKategoriBtn.setOnAction(e -> bukaHalaman("Kelola-Kategori.fxml"));
         logoutButton.setOnAction(e -> bukaHalaman("Login.fxml"));
         filterKategoriBtn.setOnAction(event -> bukaHalaman("FilterKategori.fxml"));
-        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi"));
+        pengingatTransaksiBtn.setOnAction(event -> bukaHalaman("Pengingat-Transaksi.fxml"));
         dashboardTable.setItems(FXCollections.observableArrayList(DataBaseHelper.ambilSemuaTransaksi()));
 
         // ✅ Tambahkan ini agar PieChart tampil
-        initPieChart();
         initPieChart();
         initAreaChart();
         updateInformasiKeuangan();
 
         // (opsional) juga panggil yang lain jika ingin langsung tampil:
-        initAreaChart();
         initTable();
     }
 
     private void bukaHalaman(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-            Stage stage = (Stage) tambahTransaksiBtn.getScene().getWindow(); // gunakan salah satu button
+            Parent root = loader.   load();
+            Stage stage = (Stage) tambahTransaksiBtn.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
+            System.err.println("Error loading " + fxmlPath + ": " + e.getMessage());
             e.printStackTrace();
-            showErrorAlert("Gagal membuka halaman: " + fxmlPath);
+            showErrorAlert("Gagal membuka halaman: " + fxmlPath + "\nError: " + e.getMessage());
         }
     }
 

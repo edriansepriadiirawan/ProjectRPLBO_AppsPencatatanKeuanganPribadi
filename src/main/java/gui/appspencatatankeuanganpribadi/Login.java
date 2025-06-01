@@ -24,7 +24,7 @@ public class Login {
         String password = passwordField.getText().trim();
 
         if (DataBaseHelper.validateLogin(username, password)) {
-            showAlert("Login Sukses", "Selamat datang, user!");
+            showAlert("Login Sukses", "Selamat datang, " + username + "!");
             switchScene("Dashboard.fxml");
         } else {
             showAlert("Login Gagal", "Username atau password salah!");

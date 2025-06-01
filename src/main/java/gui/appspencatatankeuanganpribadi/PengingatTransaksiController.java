@@ -414,4 +414,3 @@ public class PengingatTransaksiController implements Initializable {
         alert.showAndWait();
     }
 }
-
